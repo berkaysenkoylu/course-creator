@@ -1,0 +1,12 @@
+@import "../../../../variables";
+
+.SelectOptions {
+    display: inline-block;
+    list-style: none;
+    font-family: inherit;
+    font-size: $default-font-size;
+    box-shadow: 0 1rem 1rem rgba($color-black, 0.15);
+    position: absolute;
+    right: 0;
+    bottom: 4rem;
+}

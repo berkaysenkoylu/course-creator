@@ -1,0 +1,17 @@
+@import '../../variables';
+
+.CreateCourse {
+    &__Header {
+        font-size: $header-font-size;
+        margin-bottom: 1rem;
+        
+        h1 {
+            text-align: center;
+        }
+    }
+
+    &__Body {
+        display: flex;
+        flex-direction: column;
+    }
+}

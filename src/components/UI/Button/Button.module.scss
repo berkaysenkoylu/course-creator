@@ -1,0 +1,73 @@
+@import "../../../variables";
+
+.Button {
+    display: inline-block;
+    position: relative;
+    font-size: $default-font-size;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    background-color: $color-tertiary;
+    color: $color-white;
+    border: none;
+    transition: all 0.2s ease-out;
+    z-index: 100;
+
+    &:disabled {
+        background-color: $color-gray-dark;
+        cursor: not-allowed;
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 0;
+        transition: all 0.2s ease-out;
+        background: $color-tertiary-dark-1;
+        z-index: -100;
+    }
+
+    &::before {
+        top: 0;
+        left: 0;
+        transform-origin: top;
+    }
+
+    &::after {
+        bottom: 0;
+        right: 0;
+        transform-origin: bottom;
+    }
+
+    &:enabled:hover::before {
+        height: 50%;
+    }
+
+    &:enabled:hover::after {
+        height: 50%;
+    }
+}
+
+.ButtonDanger {
+    background-color: $color-primary-dark-1;
+
+    &::before,
+    &::after {
+        background: $color-primary-dark-2;
+    }
+}
+
+.ButtonSecondary {
+    background-color: $color-complement-dark-1;
+
+    &::before,
+    &::after {
+        background: $color-complement-dark-2;
+    }
+}
+
+.ButtonSmall {
+    padding: 0.5rem
+}

@@ -1,0 +1,14 @@
+@import "./variables";
+
+.App {
+  &-section {
+    font-size: $header-font-size;
+    font-family: $fancy-font;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

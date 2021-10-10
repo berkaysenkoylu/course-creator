@@ -1,0 +1,60 @@
+// VARIABLES
+$default-font-size: 1.6rem;
+$header-font-size: 3rem;
+$page-header-font-size: 6rem;
+$fancy-font: 'Fredoka One', cursive;
+
+// COLORS
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
+$white: #eee;
+$black: #000;
+$gray: #ccc;
+$gray-dark: #aaa;
+
+$blue-variant-1: #6a98e2;
+$blue-variant-2: #305a9e;
+
+/* MORE COLORS */
+// Primary color 
+$color-primary: #F91D17;	
+$color-primary-light-1: #CB605D;
+$color-primary-light-2: #E2514E;
+$color-primary-dark-1: #AC0B06;
+$color-primary-dark-2: #5B0200;
+
+// Secondary color
+$color-secondary: #A0E816;
+$color-secondary-light-1: #9ABD57;
+$color-secondary-light-2: #A3D348;
+$color-secondary-dark-1: #6BA006;
+$color-secondary-dark-2: #375400;
+
+// Tertiary color
+$color-tertiary: #0F9197;	
+$color-tertiary-light-1: #39787B;
+$color-tertiary-light-2: #308589;
+$color-tertiary-dark-1: #046368;
+$color-tertiary-dark-2: #003437;
+
+$color-complement: #FFA527;
+$color-complement-light-1: #FFC777;
+$color-complement-light-2: #FFBE61;
+$color-complement-dark-1: #C27100;
+$color-complement-dark-2: #734300;
+$color-complement-dark-3: #523002;
+
+// Misc colors
+$color-white: #fff;
+$color-black: #000;
+$color-gray-dark:#4b4b4b;
+$color-gray-light: #eee;
+
+// Breakpoints
+$bp-largest: 75em; // 1200px / 16px = 75em
+$bp-large: 62.5em; // 1000px / 16px = 62.5em
+$bp-medium: 50em; // 800px / 16px = 50em
+$bp-small: 37.5em; // 600px / 16px = 37.5em
+$bp-xsmall: 28.125em; // 450px / 16px = 28.125em

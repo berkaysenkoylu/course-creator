@@ -1,0 +1,10 @@
+@import '../../../variables';
+
+.CreateCourseContainer {
+    width: 80%;
+    height: 100vh;
+    margin: auto;
+    background-color: $color-gray-light;
+    opacity: 0.6;
+    padding: 1rem;
+}

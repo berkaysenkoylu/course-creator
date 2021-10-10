@@ -1,0 +1,37 @@
+@import "../../../variables";
+
+.Counter {
+    padding: 0.8rem;
+    font-size: 2rem;
+    display: flex;
+
+    &__Label {
+        margin-right: 1rem;
+    }
+
+    &__Body {
+        & > * {
+            &:not(:first-child):not(:last-child) {
+                margin: 0 0.5rem 0 0.5rem;
+            }
+
+            display: inline-block;
+            text-align: center;
+        }
+    }
+
+    &__Amount {
+        min-width: 2rem;
+    }
+
+    &__Button {
+        width: 3rem;
+        transition: all 0.2s;
+        font-weight: 600;
+
+        &:hover {
+            cursor: pointer;
+            color: $gray;
+        }
+    }
+}
