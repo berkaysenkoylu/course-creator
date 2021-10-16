@@ -7,4 +7,11 @@
     background-color: $color-gray-light;
     opacity: 0.6;
     padding: 1rem;
+
+    &__Cta {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+
+    }
 }

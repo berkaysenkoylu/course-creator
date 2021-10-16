@@ -20,7 +20,7 @@ const Counter = (props) => {
 
         setCounter(newCounter);
 
-        props.counterAmountChanged(newCounter);
+        props.counterAmountChanged(newCounter - counter);
     }
 
     return (

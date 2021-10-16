@@ -1,0 +1,18 @@
+@import "../../../../variables";
+
+.MenuItem {
+    display: block;
+    font-size: $default-font-size;
+    font-weight: 700;
+    color: $color-tertiary-dark-2;
+    transition: color 0.2s ease;
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $color-tertiary-dark-1;
+    }
+}

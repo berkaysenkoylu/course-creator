@@ -18,6 +18,11 @@ const checkValidity = (value, rules) => {
         isValid = pattern.test(value) && isValid;
     }
 
+    if (rules.isURL) {
+        const pattern = /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/;
+        isValid = pattern.test(value) && isValid;
+    }
+
     if (rules.isNumeric) {
         const pattern = /^\d+$/;
         isValid = pattern.test(value) && isValid;
