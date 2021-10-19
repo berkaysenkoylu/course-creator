@@ -4,6 +4,7 @@
     display: inline-block;
     position: relative;
     font-size: $default-font-size;
+    align-self: flex-start;
 
     label {
         display: inline-block;
@@ -15,7 +16,7 @@
 
 .SelectInput {
     display: inline-block;
-    width: 5rem;
+    min-width: 8rem;
     padding: 0.5rem;
     border-bottom: 1px solid rgba($color-tertiary-dark-1, 0.5);
     position: relative;
@@ -43,8 +44,4 @@
     &:hover::after { 
         background-color: $color-tertiary;
     }
-}
-
-.SelectOptions {
-
 }

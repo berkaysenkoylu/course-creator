@@ -22,12 +22,19 @@
         grid-template-columns: repeat(4, minmax(min-content, 1fr));
         grid-template-areas: "item1 item1 item1 item2";
         grid-gap: 3px;
+        height: 100%;
 
         &__FormField {
+            padding: 2rem;
             grid-area: item1;
+
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         &__Menu {
+            padding-left: 1.5rem;
             grid-area: item2;
         }
     }

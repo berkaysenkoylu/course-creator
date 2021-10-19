@@ -1,5 +1,5 @@
 const INPUT_TEMPLATE = {
-    elementType: 'input',
+    elementType: '',
     elementConfig: {
         type: 'text',
         placeholder: ''
@@ -15,12 +15,13 @@ const INPUT_TEMPLATE = {
 
 const addInputField = (inputObj, newInputObj) => {
     const copiedInputObj = { ...inputObj };
-    const { inputKey, placeholder, label, validation } = newInputObj;
+    const { type, inputKey, placeholder, label, validation } = newInputObj;
 
     let newFormControl = { ...INPUT_TEMPLATE };
     let copiedConfig = { ...newFormControl.elementConfig };
 
     copiedConfig.placeholder = placeholder;
+    newFormControl.elementType = type;
     newFormControl.elementConfig = copiedConfig;
     newFormControl.label = label;
     newFormControl.validation = validation;

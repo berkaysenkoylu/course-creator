@@ -1,0 +1,29 @@
+@import '../../../variables';
+
+.PageBreak {
+    font-size: $medium-font-size;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-tertiary-dark-2;
+    height: 4rem;
+    margin: 2rem 0 2rem 0;
+
+    &::before, &::after {
+        content: '';
+        display: inline-block;
+        background-color: $color-tertiary-dark-2;
+        height: 2px;
+        width: 10rem;
+        margin-top: 0.5rem;
+    }
+
+    &::before {
+        margin-right: 1rem;
+    }
+
+    &::after {
+        margin-left: 1rem;
+    }
+}

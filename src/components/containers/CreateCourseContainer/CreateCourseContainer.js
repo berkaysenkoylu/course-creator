@@ -6,7 +6,18 @@ import CreateSection from '../../CreateSection/CreateSection';
 import Button from '../../UI/Button/Button';
 
 const CreateCourseContainer = (props) => {
+    const [courseData, setCourseData] = useState({});
     const [isCreate, setIsCreate] = useState(true);
+
+    const onCourseCreatedHandler = (createdCourseData) => {
+        setCourseData(createdCourseData);
+
+        console.log(createdCourseData);
+    }
+
+    const onCourseSectionAddedHandler = (newCourseData) => {
+        console.log(newCourseData);
+    }
 
     return (
         <section className={classes.CreateCourseContainer}>
@@ -14,7 +25,8 @@ const CreateCourseContainer = (props) => {
                 <Button clicked={() => setIsCreate(prevState => !prevState)}>Toggle</Button>
             </div>
 
-            {isCreate ? <CreateCourse /> : <CreateSection />}
+            {isCreate ? <CreateCourse courseCreated={onCourseCreatedHandler} /> :
+                <CreateSection courseData={courseData} sectionCreated={onCourseSectionAddedHandler} />}
         </section>
     )
 }

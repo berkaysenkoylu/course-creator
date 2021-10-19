@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import classes from './CreateCourse.module.scss';
 import Input from '../UI/Input/Input';
 import Counter from '../UI/Counter/Counter';
 import Button from '../UI/Button/Button';
+import SelectInput from '../UI/SelectInput/SelectInput';
 import checkValidity from '../../utility/formValidation';
 import addInputField from '../../utility/addInputField';
 
-const CreateCourse = () => {
+const QUIZ_LIST = ['Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4'];
+
+const CreateCourse = props => {
     const [courseDataFormControls, setCourseDataFormControls] = useState({
         name: {
             elementType: 'input',
@@ -57,6 +60,21 @@ const CreateCourse = () => {
     const [facultyFormControls, setFacultyFormControls] = useState({});
     const [courseContentTitleFormControls, setCourseContentTitleFormControls] = useState({});
     const [formValid, setFormValid] = useState(false);
+    const [selectedQuiz, setSelectedQuiz] = useState(QUIZ_LIST[0]);
+
+    useEffect(() => {
+        let facultyArr = Object.values(facultyFormControls);
+        let courseContentTitleArr = Object.values(courseContentTitleFormControls);
+
+        if (facultyArr.length === 0 || courseContentTitleArr.length === 0)
+            setFormValid(false);
+        else
+            checkFormValidity([...Object.values(courseDataFormControls), ...facultyArr, ...courseContentTitleArr]);
+    }, [courseDataFormControls, facultyFormControls, courseContentTitleFormControls]);
+
+    const onQuizSelectedHandler = (selectedQuiz) => {
+        setSelectedQuiz(selectedQuiz);
+    }
 
     const onCourseCreatedHandler = () => {
         let courseData = {
@@ -69,11 +87,16 @@ const CreateCourse = () => {
                 })
             },
             introduction: '',
-            quiz: '',
-            weeks: []
+            quiz: selectedQuiz,
+            sections: Object.keys(courseContentTitleFormControls).map(frmCtrl => {
+                return {
+                    sectionName: courseContentTitleFormControls[frmCtrl].value || '',
+                    sectionContent: []
+                }
+            })
         };
 
-        console.log(courseData);
+        props.courseCreated(courseData);
     }
 
     const onInputChangedHandler = (event, formCtrl, operationType) => {
@@ -92,7 +115,7 @@ const CreateCourse = () => {
 
                 setFacultyFormControls(copiedFacultyFormControls);
 
-                checkFormValidity([...Object.values(courseDataFormControls), ...Object.values(copiedFacultyFormControls)]);
+                // checkFormValidity([...Object.values(courseDataFormControls), ...Object.values(copiedFacultyFormControls)]);
                 break;
             case 'section':
                 let copiedCourseContentTitleFormControls = { ...courseContentTitleFormControls };
@@ -106,7 +129,7 @@ const CreateCourse = () => {
 
                 setCourseContentTitleFormControls(copiedCourseContentTitleFormControls);
 
-                checkFormValidity([...Object.values(courseContentTitleFormControls), ...Object.values(copiedCourseContentTitleFormControls)]);
+                // checkFormValidity([...Object.values(courseContentTitleFormControls), ...Object.values(copiedCourseContentTitleFormControls)]);
                 break;
             default:
                 let copiedCourseDataFormControls = { ...courseDataFormControls };
@@ -120,11 +143,11 @@ const CreateCourse = () => {
                 
                 setCourseDataFormControls(copiedCourseDataFormControls);
 
-                if (Object.keys(facultyFormControls).length > 0) {
-                    checkFormValidity([...Object.values(copiedCourseDataFormControls), ...Object.values(facultyFormControls)]);
-                } else {
-                    setFormValid(false);
-                }
+                // if (Object.keys(facultyFormControls).length > 0) {
+                //     checkFormValidity([...Object.values(copiedCourseDataFormControls), ...Object.values(facultyFormControls)]);
+                // } else {
+                //     setFormValid(false);
+                // }
                 break;
         }
     }
@@ -140,6 +163,7 @@ const CreateCourse = () => {
                 let formCtrlCount = keyArr.length;
     
                 copiedFacultyFormControls = addInputField(copiedFacultyFormControls, {
+                    type: 'input',
                     inputKey: `faculty${formCtrlCount}`,
                     placeholder: `Faculty ${formCtrlCount + 1}`,
                     label: `Faculty ${formCtrlCount + 1}`,
@@ -163,6 +187,7 @@ const CreateCourse = () => {
                 let formCtrlCount = keyArr.length;
     
                 copiedCourseContentTitleFormControls = addInputField(copiedCourseContentTitleFormControls, {
+                    type: 'input',
                     inputKey: `section${formCtrlCount}`,
                     placeholder: `Section ${formCtrlCount + 1}`,
                     label: `Section ${formCtrlCount + 1}`,
@@ -191,41 +216,24 @@ const CreateCourse = () => {
         setFormValid(isValid);
     }
 
-    let formContent = Object.keys(courseDataFormControls).map(formCtrl => {
-        return <Input
-            key={formCtrl}
-            elementType={courseDataFormControls[formCtrl].elementType}
-            elementConfig={courseDataFormControls[formCtrl].elementConfig}
-            label={courseDataFormControls[formCtrl].label}
-            value={courseDataFormControls[formCtrl].value}
-            touched={courseDataFormControls[formCtrl].touched}
-            isValid={courseDataFormControls[formCtrl].valid}
-            changed={(event) => onInputChangedHandler(event, formCtrl, 'course')} />
-    });
+    /*
+        TODO: This is pretty messy, fix later
+    */
+    const createFormContent = (formControls, formType) => {
+        let content = Object.keys(formControls).map(formCtrl => {
+            return <Input
+                key={formCtrl}
+                elementType={formControls[formCtrl].elementType}
+                elementConfig={formControls[formCtrl].elementConfig}
+                label={formControls[formCtrl].label}
+                value={formControls[formCtrl].value}
+                touched={formControls[formCtrl].touched}
+                isValid={formControls[formCtrl].valid}
+                changed={(event) => onInputChangedHandler(event, formCtrl, formType)} />
+        });
 
-    let facultyFormContent = Object.keys(facultyFormControls).map(formCtrl => {
-        return <Input
-            key={formCtrl}
-            elementType={facultyFormControls[formCtrl].elementType}
-            elementConfig={facultyFormControls[formCtrl].elementConfig}
-            label={facultyFormControls[formCtrl].label}
-            value={facultyFormControls[formCtrl].value}
-            touched={facultyFormControls[formCtrl].touched}
-            isValid={facultyFormControls[formCtrl].valid}
-            changed={(event) => onInputChangedHandler(event, formCtrl, 'faculty')} />
-    });
-
-    let sectionFormControls = Object.keys(courseContentTitleFormControls).map(formCtrl => {
-        return <Input
-            key={formCtrl}
-            elementType={courseContentTitleFormControls[formCtrl].elementType}
-            elementConfig={courseContentTitleFormControls[formCtrl].elementConfig}
-            label={courseContentTitleFormControls[formCtrl].label}
-            value={courseContentTitleFormControls[formCtrl].value}
-            touched={courseContentTitleFormControls[formCtrl].touched}
-            isValid={courseContentTitleFormControls[formCtrl].valid}
-            changed={(event) => onInputChangedHandler(event, formCtrl, 'section')} />
-    });
+        return content;
+    }
 
     return (
         <section className={classes.CreateCourse}>
@@ -234,16 +242,18 @@ const CreateCourse = () => {
             </header>
 
             <section className={classes.CreateCourse__Body}>
-                {formContent}
+                {createFormContent(courseDataFormControls, 'course')}
+
+                <SelectInput label={'Quiz list: '} itemPerPageList={QUIZ_LIST} valueSelected={onQuizSelectedHandler} />
 
                 <div className={classes.CreateCourse__Faculty}>
                     <Counter label={'Faculty:'} counterAmountChanged={(operationType) => onCounterAmountChangedHandler(operationType, 'faculty')} />
 
-                    {facultyFormContent}
+                    {createFormContent(facultyFormControls, 'faculty')}
 
                     <Counter label={'Sections:'} counterAmountChanged={(operationType) => onCounterAmountChangedHandler(operationType, 'section')} />
 
-                    {sectionFormControls}
+                    {createFormContent(courseContentTitleFormControls, 'section')}
                 </div>
             </section>
 

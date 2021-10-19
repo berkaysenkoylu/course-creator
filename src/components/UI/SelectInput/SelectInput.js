@@ -11,6 +11,10 @@ const SelectInput = (props) => {
     let buttonRef = useRef(null);
 
     useEffect(() => {
+        setSelected(props.itemPerPageList[0] || '');
+    }, [props.itemPerPageList]);
+
+    useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -37,18 +41,26 @@ const SelectInput = (props) => {
     const onSelectOptionHandler = (value) => {
         setSelected(value);
         setShowOptions(showOptions => !showOptions);
+
         props.valueSelected(value);
     }
     
     return (
         <>
             <div className={classes.SelectInputWrapper}>
-                <Options show={showOptions} options={props.itemPerPageList} selectedOption={onSelectOptionHandler} optionsRef={optionsRef} />
-                <label>Items per page:</label>
-                <div className={classes.SelectInput} onClick={onSelectInputClickedHandler} ref={buttonRef}>{selected}</div>
+                <label>{props.label}</label>
+                <div className={classes.SelectInput} onClick={onSelectInputClickedHandler} ref={buttonRef}>
+                    {selected}
+
+                    
+                </div>
+                <Options
+                    show={showOptions}
+                    options={props.itemPerPageList}
+                    selectedOption={onSelectOptionHandler}
+                    optionsRef={optionsRef} />
             </div>
         </>
-        
     )
 }
 
